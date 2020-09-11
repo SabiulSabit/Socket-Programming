@@ -32,6 +32,18 @@ print ('Message sent successfully')
 #Receive Response
 reply = s.recv(4096)#It must take a parameter which is the max size in bytes of the recieved message, generally a power of 2 
 
-print(reply.decode())
-
+flag = int(reply.split()[1])
+if(flag == 200):
+    print ("\n", reply.decode()) 
+    full_msg = "\nServer Data : \n"
+    while True:
+        msg = s.recv(4096)             # Receives data upto 4096 bytes and stores in variables msg
+        msg = msg.decode()
+        if "DONE" in msg:
+            break
+        full_msg += msg
+    print (full_msg) 
+else:
+    print ("\n", msg.decode())   
+ 
 s.close()
